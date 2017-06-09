@@ -26,12 +26,23 @@ export default Component<Props, State, Events>(
     }),
     props =>
         <ul>
-            {props.contacts.map((contact, index) =>
-                <li>
-                    <p>Name: {contact.name.given} {contact.name.family}</p>
-                    <p>Email: {contact.email}</p>
-                    <button onClick={props.remove(index)}>Remove</button>
-                </li>
+            {
+                props
+                .contacts
+                // Sort contacts by last name alphabetically
+                .sort(
+                    (a, b) =>
+                        a.name.family < b.name.family ? -1 :
+                        a.name.family > b.name.family ? 1 :
+                        0
+                )
+                // Render contact 
+                .map((contact, index) =>
+                    <li>
+                        <p>Name: {contact.name.given} {contact.name.family}</p>
+                        <p>Email: {contact.email}</p>
+                        <button onClick={props.remove(index)}>Remove</button>
+                    </li>
             )}
         </ul>
 );
