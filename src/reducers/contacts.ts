@@ -13,24 +13,6 @@ export default (state: Contact[] = [], action: any) => {
             return state.filter((contact, index) => {
                 return index != action.contactIndex;
             });
-        case CONTACTS_ACTIONS.REORDER_CONTACT:
-            return [
-                ...state
-                .filter((contact, index) => {
-                    return index < action.newIndex
-                })
-                .filter((contact, index) => {
-                    return index != action.contactIndex
-                }),
-                state[action.contactIndex],
-                ...state
-                .filter((contact, index) => {
-                    return index >= action.newIndex
-                })
-                .filter((contact, index) => {
-                    return index != action.contactIndex
-                })
-            ]
         default:
             return state;
     }
