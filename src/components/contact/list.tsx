@@ -11,11 +11,11 @@ export interface State {
     contacts: Contact[];
 }
 
-export interface Events {
+export interface Actions {
     remove: (contactIndex: number) => () => void;
 }
 
-export default Component<Props, State, Events>(
+export default Component<Props, State, Actions>(
     state => ({
         contacts: state.contacts
     }),

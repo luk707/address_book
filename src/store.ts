@@ -1,14 +1,17 @@
 import { createStore, combineReducers } from "redux";
 import { Contact } from "models/contact";
 import ContactReducer from "reducers/contacts";
+import { reducer as formReducer, FormState } from "redux-form";
 
 export interface State {
     contacts: Contact[];
+    form: FormState;
 }
 
 export default () => createStore<State>(
     combineReducers<State>({
-        contacts: ContactReducer
+        contacts: ContactReducer,
+        form: formReducer
     }), {
         contacts: [
             {
@@ -32,5 +35,6 @@ export default () => createStore<State>(
                     }
                 }
             }
-        ]
+        ],
+        form: null
     });
