@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import { AppComponent } from "app";
 import ConfigureStore from "store";
 
+import "styles.scss";
+
 let store = ConfigureStore();
 
 // Render app to dom
