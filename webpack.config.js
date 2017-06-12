@@ -14,7 +14,7 @@ module.exports = {
         app: path.join(src, "index.tsx")
     },
     output: {
-        filename: "bundle.js",
+        filename: "bundle.[hash].js",
         path: dist
     },
     devtool: "source-map",

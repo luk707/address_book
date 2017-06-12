@@ -1,4 +1,9 @@
 var ghpages = require("gh-pages");
+var rmdir = require("rmdir");
 var path = require("path");
- 
-ghpages.publish(path.join(__dirname, "dist"), console.err);
+
+var dist = path.join(__dirname, "dist");
+
+rmdir(path.join(__dirname, "dist"), {}, () => {
+    ghpages.publish(path.join(__dirname, "dist"), console.err);
+});
