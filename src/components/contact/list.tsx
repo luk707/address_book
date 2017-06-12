@@ -2,30 +2,36 @@ import * as React from "react";
 import { Contact } from "models/contact";
 import { RemoveContact } from "actions/contacts";
 import { Component } from "component";
+import * as Gravatar from "gravatar";
 
-export interface Props {
-    editable: boolean
-}
+export interface Props { }
 
 export interface State {
     contacts: Contact[];
 }
 
-export interface Actions {
-    remove: (contactIndex: number) => () => void;
-}
+export interface Actions { }
 
 export default Component<Props, State, Actions>(
     state => ({
-        contacts: state.contacts
+        contacts: [
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts,
+            ...state.contacts
+        ]
     }),
-    dispatch => ({
-        remove: (contactIndex: number) => () => {
-            dispatch(RemoveContact(contactIndex))
-        }
-    }),
+    dispatch => ({}),
     props =>
-        <ul>
+        <div className="list">
             {
                 props
                 .contacts
@@ -38,11 +44,17 @@ export default Component<Props, State, Actions>(
                 )
                 // Render contact 
                 .map((contact, index) =>
-                    <li>
-                        <p>Name: {contact.name.given} {contact.name.family}</p>
-                        <p>Email: {contact.email}</p>
-                        <button onClick={props.remove(index)}>Remove</button>
-                    </li>
+                    <div className="item">
+                        <img src={Gravatar.url(contact.email, {
+                            s: "40",
+                            r: "pg",
+                            d: "retro"
+                        })} alt={contact.name.given}/>
+                        <div className="text">
+                            
+                            <span><b>{contact.name.family}</b>&nbsp;{contact.name.given}</span>
+                        </div>
+                    </div>
             )}
-        </ul>
+        </div>
 );

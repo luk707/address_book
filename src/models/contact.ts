@@ -1,15 +1,15 @@
 export interface Contact {
     name: {
-        given: String;
-        family: String;
+        given: string;
+        family: string;
     }
-    email: String;
+    email: string;
     address: {
-        postcode: String;
-        lines: String[];
-        city: String;
-        county: String;
-        country: String;
+        postcode: string;
+        lines: string[];
+        city: string;
+        county: string;
+        country: string;
         location: {
             longitude: number;
             latitude: number;
