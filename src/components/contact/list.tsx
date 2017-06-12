@@ -14,20 +14,7 @@ export interface Actions { }
 
 export default Component<Props, State, Actions>(
     state => ({
-        contacts: [
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts,
-            ...state.contacts
-        ]
+        contacts: state.contacts
     }),
     dispatch => ({}),
     props =>
@@ -51,7 +38,6 @@ export default Component<Props, State, Actions>(
                             d: "retro"
                         })} alt={contact.name.given}/>
                         <div className="text">
-                            
                             <span><b>{contact.name.family}</b>&nbsp;{contact.name.given}</span>
                         </div>
                     </div>

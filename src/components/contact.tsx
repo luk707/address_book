@@ -1,9 +1,8 @@
 import * as React from "react";
 import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from "react-router-dom";
+    Router,
+    Route
+} from "react-router";
 import ContactList from "components/contact/list";
 import { Contact } from "models/contact";
 import * as Gravatar from "gravatar";

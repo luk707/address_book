@@ -1,13 +1,10 @@
 import * as React from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from "react-router-dom";
 import ContactList from "components/contact/list";
 import { ContactComponent } from "components/contact";
+import { Component } from "component";
+import Button from "components/button";
 
-export const ContactsView: React.SFC<{}> = (props) =>
+export const ContactsView = props =>
     <div className="view">
         <div className="focus master">
             <div className="toolbar">
@@ -16,15 +13,20 @@ export const ContactsView: React.SFC<{}> = (props) =>
             <div className="content">
                 <ContactList/>
             </div>
+            <div className="toolbar">
+                <Button path="/new" text="Add Contact"/>
+            </div>
         </div>
         <div className="detail">
             <div className="content">
                 <ContactComponent contact={{
+                    id: 1,
                     name: {
                         given: "Luke",
                         family: "Harris"
                     },
                     email: "luke@test.com",
+                    phone: "+447123456789",
                     address: {
                         postcode: "AB1 2CD",
                         lines: [
@@ -43,3 +45,4 @@ export const ContactsView: React.SFC<{}> = (props) =>
             </div>
         </div>
     </div>
+    

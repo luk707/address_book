@@ -12,6 +12,7 @@ import required from "forms/validation/required";
 import maxLength from "forms/validation/maxLength";
 import minLength from "forms/validation/minLength";
 import alphaNumeric from "forms/validation/alphanumeric";
+import { push } from "react-router-redux";
 
 export interface FormData {
     given_name: string;
@@ -40,16 +41,19 @@ const NewContactForm = Component<FormProps<FormData, {}, State>, State, Actions>
     state => ({}),
     dispatch => ({
         onAddContact: (contact: Contact) => {
-            dispatch(AddContact(contact))
+            dispatch(AddContact(contact));
+            dispatch(push("/"));
         }
     }),
     props =>
         <form onSubmit={props.handleSubmit(data => props.onAddContact({
+                id: 1,
                 name: {
                     given: data.given_name,
                     family: data.family_name
                 },
                 email: data.email,
+                phone: "+447123456789",
                 address: {
                     postcode: data.postcode,
                     lines: [
