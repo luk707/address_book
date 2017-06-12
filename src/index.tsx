@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 
 import { AppComponent } from "app";
 import ConfigureStore from "store";
+import { persistStore } from "redux-persist";
 
 import {
     Router,
@@ -17,7 +18,7 @@ let browserHistory = createHashHistory();
 
 let store = ConfigureStore(browserHistory);
 
-console.log(JSON.stringify(store.getState().contacts[0]));
+persistStore(store);
 
 // Render app to dom
 render(

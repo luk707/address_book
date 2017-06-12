@@ -1,9 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Contact } from "models/contact";
 import ContactReducer from "reducers/contacts";
 import { reducer as formReducer, FormState } from "redux-form";
 import { routerReducer, routerMiddleware } from "react-router-redux";
 import { History } from "history";
+import { autoRehydrate } from "redux-persist";
 
 export interface State {
     contacts: Contact[];
@@ -11,38 +12,16 @@ export interface State {
 }
 
 export default (history: History) =>
-    createStore<State>(
-        combineReducers<State>({
+    createStore(
+        combineReducers({
             contacts: ContactReducer,
             form: formReducer
-        }), {
-            contacts: [
-                {
-                    id: 1,
-                    name: {
-                        given: "Luke",
-                        family: "Harris"
-                    },
-                    email: "luke@test.com",
-                    phone: "+447123456789",
-                    address: {
-                        postcode: "AB1 2CD",
-                        lines: [
-                            "123 any road",
-                            "anytown"
-                        ],
-                        city: "anycity",
-                        county: "Cambridgeshire",
-                        country: "England",
-                        location: {
-                            longitude: 1,
-                            latitude: 1
-                        }
-                    }
-                }
-            ]
-        },
-        applyMiddleware(routerMiddleware(history))
+        }),
+        undefined,
+        compose(
+            applyMiddleware(routerMiddleware(history)),
+            autoRehydrate()
+        )
     );
 
 
