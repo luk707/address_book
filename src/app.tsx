@@ -6,13 +6,14 @@ import Page from "components/views/page";
 
 import { ContactsView } from "views/contacts";
 import { AddContactView } from "views/addContact";
-import { Route } from "react-router";
+import { Route, Redirect } from "react-router";
 
 export interface AppComponentProps { }
 
 export const AppComponent: React.SFC<AppComponentProps> = (props) =>
     <div>
-        <Route exact path="/" component={ContactsView}/>
+        <Redirect exact path="/" to="/c"/>
+        <Route exact path="/c/:contact?" component={ContactsView}/>
         <Route path="/new" component={AddContactView}/>
     </div>
     

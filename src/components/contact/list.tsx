@@ -2,6 +2,7 @@ import * as React from "react";
 import { Contact } from "models/contact";
 import { RemoveContact } from "actions/contacts";
 import { Component } from "component";
+import { push } from "react-router-redux";
 import * as Gravatar from "gravatar";
 
 export interface Props { }
@@ -10,13 +11,19 @@ export interface State {
     contacts: Contact[];
 }
 
-export interface Actions { }
+export interface Actions {
+    go: (path: string) => () => void;
+}
 
 export default Component<Props, State, Actions>(
     state => ({
         contacts: state.contacts
     }),
-    dispatch => ({}),
+    dispatch => ({
+        go: (path: string) => () => {
+            dispatch(push(path));
+        }
+    }),
     props =>
         <div className="list">
             {
@@ -31,7 +38,7 @@ export default Component<Props, State, Actions>(
                 )
                 // Render contact 
                 .map((contact, index) =>
-                    <div className="item">
+                    <div className="item" onClick={props.go(`/c/${contact.id}`)}>
                         <img src={Gravatar.url(contact.email, {
                             s: "40",
                             r: "pg",

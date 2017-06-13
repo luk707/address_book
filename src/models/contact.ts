@@ -1,5 +1,5 @@
 export interface Contact {
-    id: number;
+    id: string;
     name: {
         given: string;
         family: string;

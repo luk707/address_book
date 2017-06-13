@@ -53,10 +53,14 @@ $breakpoint: 600px;
         height: 50px;
         display: flex;
         align-items: center;
+        cursor: pointer;
         img {
             flex-shrink: 0;
             border-radius: 12px;
             padding: 5px;
+        }
+        &:hover {
+            background-color: rgba(#000, 0.1)
         }
     }
 }
