@@ -6085,8 +6085,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./styles.scss", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./styles.scss");
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/autoprefixer-loader/index.js!../node_modules/sass-loader/lib/loader.js!./styles.scss", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/autoprefixer-loader/index.js!../node_modules/sass-loader/lib/loader.js!./styles.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -6117,20 +6117,41 @@ exports.ContactComponent = component_1.Component(function (state) { return ({
         return contactData.id == contact;
     })[0]; }
 }); }, function (dispatch) { return ({}); }, function (props) {
-    return props.contactData(props.contact) ?
+    var contactData = props.contactData(props.contact);
+    return contactData ?
         React.createElement("div", { className: "contact" },
             React.createElement(button_1["default"], { path: "/c", text: "< Contacts" }),
             React.createElement("div", { className: "jumbo" },
-                React.createElement("img", { src: Gravatar.url(props.contactData(props.contact).email, {
+                React.createElement("img", { src: Gravatar.url(contactData.email, {
                         s: "80",
                         r: "pg",
                         d: "retro"
-                    }), alt: props.contactData(props.contact).name.given }),
+                    }), alt: contactData.name.given }),
                 React.createElement("h1", null,
-                    props.contactData(props.contact).name.given,
+                    contactData.name.given,
                     " ",
-                    props.contactData(props.contact).name.family)),
-            React.createElement("span", null, "Email")) :
+                    contactData.name.family)),
+            React.createElement("div", { className: "details" },
+                React.createElement("div", { className: "detail" },
+                    React.createElement("div", { className: "label" },
+                        React.createElement("b", null, "Email")),
+                    React.createElement("div", { className: "value" }, contactData.email)),
+                React.createElement("div", { className: "detail" },
+                    React.createElement("div", { className: "label" },
+                        React.createElement("b", null, "Phone")),
+                    React.createElement("div", { className: "value" }, contactData.phone)),
+                React.createElement("div", { className: "detail" },
+                    React.createElement("div", { className: "label" },
+                        React.createElement("b", null, "Address")),
+                    React.createElement("div", { className: "address" },
+                        React.createElement("div", { className: "line" },
+                            contactData.address.lines.map(function (line, index) {
+                                return React.createElement("div", { className: "item", key: index }, line);
+                            }),
+                            React.createElement("div", { className: "line" }, contactData.address.city),
+                            React.createElement("div", { className: "line" }, contactData.address.county),
+                            React.createElement("div", { className: "line" }, contactData.address.country),
+                            React.createElement("div", { className: "line" }, contactData.address.postcode)))))) :
         React.createElement("div", { className: "contact" },
             React.createElement("span", null, "Select A Contact"));
 });
@@ -6419,7 +6440,7 @@ exports = module.exports = __webpack_require__(133)(undefined);
 
 
 // module
-exports.push([module.i, "* {\n  font-family: 'Roboto', sans-serif; }\n\n.view {\n  position: fixed;\n  display: flex;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0; }\n\n.master {\n  display: flex;\n  flex-direction: column;\n  width: 240px;\n  flex-shrink: 0;\n  transition: width 0.3s, margin-left 0.3s; }\n  @media screen and (max-width: 600px) {\n    .master {\n      width: 100%;\n      margin-left: -100%; }\n      .master.focus {\n        margin-left: 0; } }\n\n.detail {\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n  flex-shrink: 0; }\n  @media screen and (max-width: 600px) {\n    .detail {\n      width: 100%; } }\n\n.toolbar {\n  display: flex;\n  flex-shrink: 0; }\n\n.content {\n  flex-grow: 1;\n  overflow-y: scroll; }\n\n.list .item {\n  height: 50px;\n  display: flex;\n  align-items: center;\n  cursor: pointer; }\n  .list .item img {\n    flex-shrink: 0;\n    border-radius: 12px;\n    padding: 5px; }\n  .list .item:hover {\n    background-color: rgba(0, 0, 0, 0.1); }\n\n.contact {\n  display: flex;\n  flex-direction: column; }\n  .contact .jumbo {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: space-around;\n    height: 200px;\n    background-color: #111;\n    color: white; }\n    .contact .jumbo img {\n      margin-top: 30px;\n      border-radius: 50%; }\n\n/*\n.master-detail {\n    // Using fixed position for views prevents\n    // elastic scroling on ios for full page\n    // views\n    position: fixed;\n    display: flex;\n    top: 0;\n    left: 0;\n    width: 200vw;\n    height: 100vh;\n    transition: 0.25s;\n    @media screen and (max-width: $breakpoint) {\n        &.focus {\n            margin-left: -100%;\n        }\n        //.master .detail {\n        //    overflow: hidden;\n        //}\n    }\n}\n\n.master {\n    flex-shrink: 0;\n    width: 240px;\n    background-color: orange;\n    @media screen and (max-width: $breakpoint) {\n        width: 100vw;\n    }\n}\n\n.detail {\n    background-color: lightblue;\n    @media screen and (max-width: $breakpoint) {\n        width: 100vw;\n    }\n}\n\n.page {\n    width: 100%;\n    @media screen and (max-width: $breakpoint) {\n        width: 100vw;\n        flex-shrink: 0;\n        overflow: hidden;\n    }\n    height: 100vh;\n    padding: 8px;\n    padding-top: 58px;\n    overflow: auto;\n    display: flex;\n    flex-direction: column;\n}\n\n.toolbar {\n    flex-grow: 1;\n    top: 0;\n    height: 50px;\n    background-color: white;\n    border-bottom: 1px solid grey;\n    /*position: relative;\n    display: flex;\n    justify-content: center;\n    top: 0;\n    margin-left: -8px;\n    position: fixed;\n    height: 50px;\n    background-color: white;\n    border-bottom: 1px solid grey;\n    flex-grow: 1;\n}*/\n", ""]);
+exports.push([module.i, "* {\n  font-family: 'Roboto', sans-serif; }\n\n.view {\n  position: fixed;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0; }\n\n.master {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  width: 240px;\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n  transition: width 0.3s, margin-left 0.3s; }\n  @media screen and (max-width: 600px) {\n    .master {\n      width: 100%;\n      margin-left: -100%; }\n      .master.focus {\n        margin-left: 0; } }\n\n.detail {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1; }\n  @media screen and (max-width: 600px) {\n    .detail {\n      width: 100%; } }\n\n.toolbar {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-negative: 0;\n      flex-shrink: 0; }\n\n.content {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  overflow-y: scroll; }\n\n.list .item {\n  height: 50px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer; }\n  .list .item img {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n    border-radius: 12px;\n    padding: 5px; }\n  .list .item:hover {\n    background-color: rgba(0, 0, 0, 0.1); }\n\n.contact {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .contact .jumbo {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 100%;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    height: 200px;\n    background-color: #111;\n    color: white; }\n    .contact .jumbo img {\n      margin-top: 30px;\n      border-radius: 50%; }\n  .contact .details {\n    display: table;\n    padding-top: 40px;\n    padding-bottom: 40px; }\n    .contact .details .detail {\n      display: table-row; }\n      .contact .details .detail .label {\n        display: table-cell;\n        padding: 8px;\n        text-align: right; }\n      .contact .details .detail .value {\n        padding: 8px;\n        display: table-cell; }\n      .contact .details .detail .address {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        padding: 8px;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column; }\n", ""]);
 
 // exports
 
@@ -19323,4 +19344,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.194650fce6ed3ce68ae4.js.map
+//# sourceMappingURL=bundle.128eef6bb87f8825aeed.js.map
