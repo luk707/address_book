@@ -5,6 +5,7 @@ import View from './components/View';
 import Master from './components/Master';
 import Detail from './components/Detail';
 import Button from './components/Button';
+import Toolbar from './components/Toolbar';
 
 const logo = require('./logo.svg');
 
@@ -13,9 +14,10 @@ class App extends React.Component<{}, null> {
     return (
       <View>
         <Master focus={false}>
-          <h2>Master View</h2>
+          <Toolbar title="Contacts" action={{ icon: "add" }}/>
         </Master>
         <Detail>
+          <Toolbar title="Test" back={{icon: "chevron_left", label:"Contacts"}}/>
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h2>Welcome to React</h2>

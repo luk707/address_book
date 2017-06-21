@@ -8,13 +8,13 @@
     flex-direction: column;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    width: 240px;
+    width: 320px;
     flex-shrink: 0;
     transition: width 0.3s, margin-left 0.3s;
     
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
     .master {
         width: 100%;
         margin-left: -100%;
