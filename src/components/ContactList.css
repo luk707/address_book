@@ -1,0 +1,29 @@
+.contact-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.contact-list .item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.contact-list .item:hover {
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
+.contact-list .item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
