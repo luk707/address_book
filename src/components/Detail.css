@@ -11,10 +11,11 @@
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;
+    transition: width 0.3s;
 }
 
 @media screen and (max-width: 600px) {
-    .master {
-        width: 100%;
+    .detail {
+        width: 100vw;
     }
 }
