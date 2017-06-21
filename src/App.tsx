@@ -4,6 +4,7 @@ import './App.css';
 import View from './components/View';
 import Master from './components/Master';
 import Detail from './components/Detail';
+import Button from './components/Button';
 
 const logo = require('./logo.svg');
 
@@ -22,6 +23,11 @@ class App extends React.Component<{}, null> {
           <p className="App-intro">
             To get started, edit <code>src/App.tsx</code> and save to reload.
           </p>
+          <div>
+            <Button style="default">Test</Button>
+            <Button style="primary">Learn More</Button>
+            <Button style="danger">Delete</Button>
+          </div>
         </Detail>
       </View>
     );
