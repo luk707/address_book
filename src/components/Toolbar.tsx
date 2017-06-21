@@ -5,11 +5,11 @@ export interface ToolbarProps {
     title: string;
     action?: {
         icon: string;
-    }
+    };
     back?: {
         icon: string;
         label: string;
-    }
+    };
 }
 
 /**
@@ -26,12 +26,12 @@ class Toolbar extends React.Component<ToolbarProps, null> {
           <button className="back">
             <i className="material-icons">{this.props.back.icon}</i>
             <span>{this.props.back.label}</span>
-          </button>:
+          </button> :
         null}
         {this.props.action ?
           <button className="action">
             <i className="material-icons">{this.props.action.icon}</i>
-          </button>:
+          </button> :
         null}
       </div>
     );
