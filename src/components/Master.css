@@ -1,0 +1,25 @@
+.master {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 240px;
+    flex-shrink: 0;
+    transition: width 0.3s, margin-left 0.3s;
+    
+}
+
+@media screen and (max-width: 600px) {
+    .master {
+        width: 100%;
+        margin-left: -100%;
+    }
+    .master.focus {
+        margin-left: 0;
+    }
+}
