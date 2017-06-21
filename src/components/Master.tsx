@@ -11,10 +11,12 @@ export interface MasterProps {
 class Master extends React.Component<MasterProps, null> {
   render() {
     return (
-      <div className={[
-          "master",
-          this.props.focus ? "focus" : undefined
-      ].join(" ")}>
+      <div
+        className={[
+          'master',
+          this.props.focus ? 'focus' : undefined
+        ].join(' ')}
+      >
         {this.props.children}
       </div>
     );
