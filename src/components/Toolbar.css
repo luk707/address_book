@@ -1,12 +1,6 @@
 .toolbar {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -ms-flex-negative: 0;
     flex-shrink: 0;
     height: 44px;
     justify-content: center;
@@ -16,8 +10,6 @@
 }
 
 .toolbar > .title {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     margin: 0;
     font-size: 24px;
@@ -28,7 +20,6 @@
 .toolbar > .action {
     align-self: flex-end;
     margin-top: -44px;
-    -ms-flex-negative: 0;
     flex-shrink: 0;
     height: 44px;
     width: 44px;
@@ -41,12 +32,9 @@
 .toolbar > .back {
     align-self: flex-start;
     margin-top: -44px;
-    -ms-flex-negative: 0;
     flex-shrink: 0;
     height: 44px;
     padding-right: 12px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,7 +1,5 @@
 .view {
     position: fixed;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     top: 0;
     bottom: 0;
