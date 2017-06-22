@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://luk707.github.io/address_book",
   "dependencies": {
     "@types/gravatar": "^1.4.28",
     "@types/history": "^4.5.2",
