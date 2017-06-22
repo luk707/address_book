@@ -16,8 +16,11 @@ import AddContactForm from './forms/AddContact';
 
 let isMobile = (): void => { window.innerWidth < 640 };
 
-let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => ({state}))((props) =>
-    <SubView>
+let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => ({state}))((props) => {
+
+    let selected = props.state.contacts.contacts.filter(contact => contact.index == props.selectedContact)[0] || null;
+
+    return <SubView>
       <Master focus={props.selectedContact < 0}>
         <Toolbar title="Contacts" action={{ icon: 'add', onClick: () => { props.dispatch(push('/add')) } }}/>
         <Content>
@@ -40,9 +43,9 @@ let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => (
       </Master>
       <Detail>
         {
-          props.selectedContact >= 0 ?
+          props.selectedContact >= 0 && selected ?
           <ContactView
-            contact={props.state.contacts.contacts.filter(contact => contact.index == props.selectedContact)[0]}
+            contact={selected}
             onBack={() => {props.dispatch(push(`/`))}}
           />
           : <div style={{
@@ -60,8 +63,8 @@ let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => (
         }
         
       </Detail>
-    </SubView>
-);
+    </SubView>;
+});
 
 let MainViewContainer = (props: any) => { console.log(props); return <MainView selectedContact={props.match.params.contact ? parseInt(props.match.params.contact) : -1}/> }
 
@@ -74,8 +77,8 @@ export default connect<{state: State}, {}, {history: History}>(state => ({state}
             <Toolbar title="Add Contact" back={{icon:'chevron_left',label:'Contacts',onClick:()=>{ props.dispatch(push('/')) }}}/>
             <Content>
               <AddContactForm onNewContact={(contact) => {
-                console.log(contact)
-                props.dispatch({type:'ADD_CONTACT', payload:contact})
+                props.dispatch({type:'ADD_CONTACT', payload:contact});
+                props.dispatch(push('/'));
               }}/>
             </Content>
           </Page>
