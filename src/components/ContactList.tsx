@@ -7,6 +7,7 @@ import { Contact } from '../models/Contact';
 export interface ContactListProps {
   contacts: Contact[];
   filter: (contacts: Contact[]) => Contact[];
+  onClick: (index: number) => () => void;
 }
 
 /**
@@ -17,7 +18,7 @@ class ContactList extends React.Component<ContactListProps, null> {
     return (
       <div className="contact-list">
         {this.props.filter(this.props.contacts).map(contact =>
-          <div className="item">
+          <div className="item" onClick={this.props.onClick(contact.index)}>
             <img
               src={Gravatar.url(contact.email, {
                 // Using window.devicePixelRatio ensures the image is sized correctly on mobile devices.

@@ -4,5 +4,5 @@ import ContactList from './ContactList';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<ContactList filter={(contacts) => contacts} contacts={[]}/>, div);
+  ReactDOM.render(<ContactList filter={(contacts) => contacts} contacts={[]} onClick={(index) => ()=> {}}/>, div);
 });

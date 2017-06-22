@@ -22,7 +22,7 @@ class Toolbar extends React.Component<ToolbarProps, null> {
     return (
       <div className="toolbar">
         <div className="title">
-          <span>{this.props.title}</span>
+          <span style={{fontWeight:900}}>{this.props.title}</span>
         </div>
         {this.props.back ?
           <button className="back" onClick={this.props.back.onClick}>

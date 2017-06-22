@@ -4,63 +4,32 @@ import { Contact } from '../models/Contact';
 
 export interface ContactsAction extends Action {
     payload?: Contact;
-    id?: number;
+    index?: number;
 }
 
-export default (state: Contact[] = [
-{
-    email: 'joe@test.com',
-    name: {
-    given: 'Joe',
-    family: 'Blogs'
-    },
-    phone: '+447123456789',
-    address: {
-    postcode: 'ABC 123',
-    line1: '1 Test Way',
-    city: 'Test City',
-    county: 'Test County',
-    country: 'Test Country'
-    }
-},
-{
-    email: 'jane@test.com',
-    name: {
-    given: 'Jane',
-    family: 'Doe'
-    },
-    phone: '+447123456789',
-    address: {
-    postcode: 'ABC 123',
-    line1: '1 Test Way',
-    city: 'Test City',
-    county: 'Test County',
-    country: 'Test Country'
-    }
-},
-{
-    email: 'bob@test.com',
-    name: {
-    given: 'Bob',
-    family: 'Blogs'
-    },
-    phone: '+447123456789',
-    address: {
-    postcode: 'ABC 123',
-    line1: '1 Test Way',
-    city: 'Test City',
-    county: 'Test County',
-    country: 'Test Country'
-    }
-}], action: ContactsAction): Contact[] => {
+export interface ContactsState {
+    contacts: Contact[];
+    index: number;
+}
+
+export default (state: ContactsState = {contacts: [], index: 0}, action: ContactsAction): {contacts: Contact[], index: number} => {
     switch (action.type) {
         case 'ADD_CONTACT':
-            return action.payload === undefined ? state : [
-                action.payload,
-                ...state
-            ];
+            return action.payload === undefined ? state : {
+                contacts: [
+                    {
+                        ...action.payload,
+                        index: state.index
+                    },
+                    ...state.contacts
+                ],
+                index: state.index + 1
+            }
         case 'REMOVE_CONTACT':
-            return action.id === undefined ? state : state.filter((contact, index) => index != action.id)
+            return {
+                contacts: action.index === undefined ? state : state.contacts.filter((contact, index) => index != action.index),
+                ...state
+            }
         default:
             return state;
     }

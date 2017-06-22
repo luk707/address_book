@@ -22,3 +22,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+input[type=text] {
+  padding: 8px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #89C3E8;
+}
+
+input[type=text] .danger {
+    background-color: #fff;
+    border: 1px solid #E88989;
+}

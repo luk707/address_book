@@ -1,4 +1,5 @@
 export interface Contact {
+    index: number;
     email: string;
     name: {
         given: string;

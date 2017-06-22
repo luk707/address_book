@@ -17,6 +17,7 @@ const Map = ReactMapboxGl({
 
 export interface ContactViewProps {
   contact: Contact;
+  onBack: () => void;
 }
 
 export interface ContactViewState {
@@ -48,16 +49,14 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
       this.setState(state => ({
         ...state,
         loading: false,
-        location: {
-          longitude: 0,
-          latitude: 0
-        }
+        location: props.contact.address.location
       }));
     } else {
     
       Axios.get(`http://api.postcodes.io/postcodes?q=${props.contact.address.postcode}`).then(response => {
         this.setState(state => ({
           ...state,
+          loading: false,
           location: {
             longitude: response.data.result[0].longitude,
             latitude: response.data.result[0].latitude
@@ -67,11 +66,47 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
 
     }
   }
+  componentWillReceiveProps(props: ContactViewProps) {
+
+    console.log(this.state.location)
+    this.setState(state => ({
+      postcode: props.contact.address.postcode,
+      loading: true,
+      location: {
+        longitude: 0,
+        latitude: 0
+      }
+    }));
+
+    if (props.contact.address.location !== undefined) {
+      this.setState(state => ({
+        ...state,
+        loading: false,
+        location: props.contact.address.location
+      }));
+    } else {
+    
+      Axios.get(`http://api.postcodes.io/postcodes?q=${props.contact.address.postcode}`).then(response => {
+        
+        this.setState(state => ({
+          ...state,
+          loading: false,
+          location: {
+            longitude: response.data.result[0].longitude,
+            latitude: response.data.result[0].latitude
+          }
+        }));
+
+        console.log(this.state.location)
+      });
+
+    }
+  }
   render() {
     return (
       <div className="contact-view">
         <Toolbar
-          back={{icon: 'chevron_left', label: 'Contacts', onClick: () => {}}}
+          back={{icon: 'chevron_left', label: 'Contacts', onClick: this.props.onBack}}
           title={`${this.props.contact.name.given} ${this.props.contact.name.family}`}
         />
         <Content>
@@ -87,7 +122,7 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
             />
             <div className="contact-detail">
               <i className="material-icons">phone</i>
-              <span>{this.props.contact.phone}</span>
+              <a style={{color:'#fff'}} href={`tel://${this.props.contact.phone}`}>{this.props.contact.phone}</a>
             </div>
             <div className="contact-detail">
               <i className="material-icons">location_on</i>
@@ -121,7 +156,9 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
           <Map
             style="mapbox://styles/mapbox/satellite-v9"
             accessToken=""
+            preserveDrawingBuffer={true}
           >
+            {this.state.loading ? null :
             <Marker
               coordinates={[this.state.location.longitude, this.state.location.latitude]}
               anchor="center"
@@ -130,7 +167,8 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
                 style={{
                   borderRadius: 30,
                   width: 60,
-                  height: 60
+                  height: 60,
+                  userSelect: "none"
                 }}
                 src={Gravatar.url(this.props.contact.email, {
                   s: Math.round(60 * window.devicePixelRatio).toString(),
@@ -139,6 +177,7 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
                 })}
               />
             </Marker>
+            }
           </Map>
         </Content>
       </div>

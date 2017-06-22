@@ -14,4 +14,24 @@ class View extends React.Component<{}, null> {
   }
 }
 
+export class SubView extends View {
+  render() {
+    return (
+      <div className="subview">
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
+export class Page extends View {
+  render() {
+    return (
+      <div className="page">
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
 export default View;
