@@ -71,7 +71,7 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
     return (
       <div className="contact-view">
         <Toolbar
-          back={{icon: 'chevron_left', label: 'Contacts'}}
+          back={{icon: 'chevron_left', label: 'Contacts', onClick: () => {}}}
           title={`${this.props.contact.name.given} ${this.props.contact.name.family}`}
         />
         <Content>
