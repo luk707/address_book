@@ -1,3 +1,4 @@
+// Contact tupe definition model.
 export interface Contact {
     index: number;
     email: string;

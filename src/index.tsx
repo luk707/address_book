@@ -9,7 +9,9 @@ import { createHashHistory } from 'history';
 
 let history = createHashHistory();
 
+// Begin rendering the application to the DOM.
 ReactDOM.render(
+  // The provider needs a configured redux store.
   <Provider store={configureStore(history)}>
     <App history={history}/>
   </Provider>,

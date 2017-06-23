@@ -14,12 +14,14 @@ import { History } from 'history';
 import { push, replace } from 'react-router-redux';
 import AddContactForm from './forms/AddContact';
 
-let isMobile = (): void => { window.innerWidth < 640 };
+// Returns true if the device is mobile.
+let isMobile = (): boolean => window.innerWidth < 640;
 
+// The Main view is seperated as it needs to be rendered on the '/' and '/:contactId' route.
 let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => ({state}))((props) => {
-
+    // Get the selected contact payload from the store.
     let selected = props.state.contacts.contacts === undefined ? null: props.state.contacts.contacts.filter(contact => contact.index == props.selectedContact)[0] || null;
-
+    // Return the JSX element
     return <SubView>
       <Master focus={props.selectedContact < 0}>
         <Toolbar title="Contacts" action={{ icon: 'add', onClick: () => { props.dispatch(push('/add')) } }}/>
@@ -27,11 +29,14 @@ let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => (
           {props.state.contacts == null ? null :
           <ContactList 
             filter={contacts => contacts === undefined ? contacts : contacts.sort(
+              // Sort the contact alphabetically by family name
               (a, b) =>
                 a.name.family < b.name.family ? -1 :
                 a.name.family > b.name.family ? 1 : 0) }
             contacts={props.state.contacts.contacts}
             onClick={(index) => () => {
+              // The befaviour for altering the browser history should be different for
+              // devices that see the master and detail view side by side.
               if (isMobile) {
                 props.dispatch(replace(`/`));
                 props.dispatch(push(`/${index}`))
@@ -44,6 +49,7 @@ let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => (
       </Master>
       <Detail>
         {
+          // Show the correct contact view or an empty view if no contact has been selected.
           props.selectedContact >= 0 && selected ?
           <ContactView
             contact={selected}
@@ -67,8 +73,10 @@ let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => (
     </SubView>;
 });
 
+// Create an element to wrap around th main view and inject the selected contct from the routing paramaters.
 let MainViewContainer = (props: any) => { console.log(props); return <MainView selectedContact={props.match.params.contact ? parseInt(props.match.params.contact) : -1}/> }
 
+// Export the application
 export default connect<{state: State}, {}, {history: History}>(state => ({state}))((props) =>
   <Router history={props.history}>
     <View>

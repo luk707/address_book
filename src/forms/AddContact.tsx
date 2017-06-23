@@ -1,15 +1,13 @@
 import * as React from 'react';
 import Axios from 'axios';
-
-//import Content from '../components/Content';
-//import Toolbar from '../components/Toolbar';
-
 import { Contact } from '../models/Contact';
 
+// Form properties interface
 export interface AddContactFormProps {
   onNewContact: (contact: Contact) => void;
 }
 
+// Form state interface
 export interface AddContactFormState {
   given_name: string;
   given_name_invalid?: string;
@@ -47,6 +45,7 @@ class AddContactForm extends React.Component<AddContactFormProps, AddContactForm
   constructor (props: AddContactFormProps) {
     super(props);
 
+    // Initialise the form state.
     this.state = {
       given_name: '',
       family_name: '',
@@ -63,6 +62,7 @@ class AddContactForm extends React.Component<AddContactFormProps, AddContactForm
       getingData: false
     };
   }
+  // Create a contact from the form state
   GetContact(state: AddContactFormState): Promise<Contact> {
     return Promise.resolve({
       index: -1,
@@ -86,12 +86,14 @@ class AddContactForm extends React.Component<AddContactFormProps, AddContactForm
   render() {
     return (
       <form className="contact-address" onSubmit={event => {if(!this.state.getingData) {this.GetContact(this.state).then(contact => {
+        // Expose the new contact to the parent
         this.props.onNewContact(contact)  
       });}event.preventDefault();}}>
         <div className="address-item">
           <b className="label">First Name*</b>
           <span>
             <input type="text" className={this.state.given_name_invalid == undefined ? undefined : 'danger'} value={this.state.given_name} onChange={event => {
+              // Validate the first name field
               if (event.target.value.length == 0) {
                 this.setState({given_name_invalid: 'This field is required'});
               }
@@ -114,6 +116,7 @@ class AddContactForm extends React.Component<AddContactFormProps, AddContactForm
           <b className="label">Last Name*</b>
           <span>
             <input type="text" className={this.state.family_name_invalid == undefined ? undefined : 'danger'} value={this.state.family_name} onChange={event => {
+              // Validate the first name field
               if (event.target.value.length == 0) {
                 this.setState({family_name_invalid: 'This field is required'});
               }
@@ -186,11 +189,14 @@ class AddContactForm extends React.Component<AddContactFormProps, AddContactForm
           <b className="label">Postcode*</b>
           <span>
             <input type="text" className={this.state.postcode_invalid == undefined ? undefined : 'danger'} value={this.state.postcode} onChange={event => {
+              // Validate the postcode field
               if (event.target.value.length == 0) {
                 this.setState({postcode_invalid: 'This field is required'});
               }
               else {
+                // Create ajax request to the postcodes api
                 Axios.get(`http://api.postcodes.io/postcodes/${event.target.value}/validate`).then(result => {
+                  // After the promise resolves consume the response
                   if (result.data.result) {
                     this.setState({postcode_invalid: undefined});
                   } else {

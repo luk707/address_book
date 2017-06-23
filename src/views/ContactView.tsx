@@ -11,10 +11,12 @@ import { Contact } from '../models/Contact';
 
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 
+// Create the mapbox gl component
 const Map = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoibHVrNzA3IiwiYSI6ImNqNDcyYnYxdDAwOTgycXFxczMwdmY4d3UifQ.6xyohsBS5wU_LJhBGCswmg'
 });
 
+// Interfaces for component properties and state
 export interface ContactViewProps {
   contact: Contact;
   onBack: () => void;
@@ -36,6 +38,7 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
   constructor (props: ContactViewProps) {
     super(props);
 
+    // Create the initial state
     this.state = {
       postcode: props.contact.address.postcode,
       loading: true,
@@ -45,6 +48,7 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
       }
     };
 
+    // Query the contact for location data
     if (props.contact.address.location !== undefined) {
       this.setState(state => ({
         ...state,
@@ -52,7 +56,7 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
         location: props.contact.address.location
       }));
     } else {
-    
+      // If it doesnt have any use the postcode to get coordinates.
       Axios.get(`http://api.postcodes.io/postcodes?q=${props.contact.address.postcode}`).then(response => {
         this.setState(state => ({
           ...state,
@@ -66,6 +70,8 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
 
     }
   }
+  // If the users selects another user it will not rerednder the element, this means the state needs to be invalidated
+  // and the request to the postcodes api should be made again.
   componentWillReceiveProps(props: ContactViewProps) {
 
     console.log(this.state.location)
