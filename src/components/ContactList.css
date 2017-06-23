@@ -1,0 +1,23 @@
+.contact-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-list .item {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.contact-list .item:hover {
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
+.contact-list .item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 8px;
+}

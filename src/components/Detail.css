@@ -1,0 +1,13 @@
+.detail {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 1;
+    transition: width 0.3s;
+}
+
+@media screen and (max-width: 600px) {
+    .detail {
+        width: 100vw;
+    }
+}

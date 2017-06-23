@@ -1,27 +1,24 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { Contact } from "models/contact";
-import ContactReducer from "reducers/contacts";
-import { reducer as formReducer, FormState } from "redux-form";
-import { routerReducer, routerMiddleware } from "react-router-redux";
-import { History } from "history";
-import { autoRehydrate } from "redux-persist";
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+
+import ContactsReducer, {ContactsState} from './reducers/contacts';
+
+import { routerMiddleware } from 'react-router-redux';
+import { History } from 'history';
+import {persistStore, autoRehydrate} from 'redux-persist';
 
 export interface State {
-    contacts: Contact[];
-    form?: FormState;
+    contacts: ContactsState;
 }
 
-export default (history: History) =>
-    createStore(
-        combineReducers({
-            contacts: ContactReducer,
-            form: formReducer
-        }),
-        undefined,
-        compose(
-            applyMiddleware(routerMiddleware(history)),
-            autoRehydrate()
-        )
-    );
+let reducer = combineReducers<State>({
+    contacts: ContactsReducer
+});
 
-
+export default (history: History) => {
+    let store = createStore<any>(reducer, compose(
+        applyMiddleware(routerMiddleware(history)),
+        autoRehydrate()
+    ));
+    persistStore(store);
+    return store;
+};

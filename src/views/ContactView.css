@@ -1,0 +1,73 @@
+.contact-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-view .heading {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 240px;
+    background-color: #222;
+}
+
+.contact-view .heading img {
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding-top: 10px;
+}
+
+.contact-detail i {
+    padding-right: 6px;
+}
+
+.contact-address-container {
+    padding: 25px 0px;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.contact-address {
+    display: table;
+    align-self: center;
+}
+
+.address-item {
+    display: table-row;
+}
+
+.address-item * {
+    display: table-cell;
+    padding: 8px;
+}
+
+.address-item .label {
+    text-align: right;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.address * {
+    padding: 0;
+    padding-bottom: 8px;
+}
+
+.mapboxgl-map {
+    display: block;
+    flex-grow: 1;
+    min-height: 500px;
+}

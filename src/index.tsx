@@ -1,31 +1,18 @@
-import * as React from "react";
-import { render } from "react-dom";
-import { Provider } from "react-redux";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import './index.css';
+import configureStore from './store';
+import { createHashHistory } from 'history';
 
-import { AppComponent } from "app";
-import ConfigureStore from "store";
-import { persistStore } from "redux-persist";
+let history = createHashHistory();
 
-import {
-    Router,
-    Route
-} from "react-router";
-import { createHashHistory } from "history";
-
-import "styles.scss";
-
-let browserHistory = createHashHistory();
-
-let store = ConfigureStore(browserHistory);
-
-persistStore(store);
-
-// Render app to dom
-render(
-    <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path="/" component={AppComponent}/>
-        </Router>
-    </Provider>,
-    document.getElementById("app")
+ReactDOM.render(
+  <Provider store={configureStore(history)}>
+    <App history={history}/>
+  </Provider>,
+  document.getElementById('root') as HTMLElement
 );
+registerServiceWorker();

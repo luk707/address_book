@@ -1,18 +1,35 @@
-import { CONTACTS_ACTIONS } from "actions/contacts";
-import { Contact } from "models/contact";
-import { Action } from "redux";
+import { Action } from 'redux';
 
-export default (state: Contact[] = [], action: any) => {
-    switch(action.type) {
-        case CONTACTS_ACTIONS.ADD_CONTACT:
-            return [
-                action.contact,
+import { Contact } from '../models/Contact';
+
+export interface ContactsAction extends Action {
+    payload?: Contact;
+    index?: number;
+}
+
+export interface ContactsState {
+    contacts: Contact[];
+    index: number;
+}
+
+export default (state: ContactsState = {contacts: [], index: 0}, action: ContactsAction): {contacts: Contact[], index: number} => {
+    switch (action.type) {
+        case 'ADD_CONTACT':
+            return action.payload === undefined ? state : {
+                contacts: [
+                    {
+                        ...action.payload,
+                        index: state.index
+                    },
+                    ...state.contacts
+                ],
+                index: state.index + 1
+            }
+        case 'REMOVE_CONTACT':
+            return {
+                contacts: action.index === undefined ? state : state.contacts.filter((contact, index) => index != action.index),
                 ...state
-            ];
-        case CONTACTS_ACTIONS.REMOVE_CONTACT:
-            return state.filter((contact, index) => {
-                return index != action.contactIndex;
-            });
+            }
         default:
             return state;
     }

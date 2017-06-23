@@ -1,0 +1,19 @@
+.master {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    width: 320px;
+    flex-shrink: 0;
+    transition: width 0.3s, margin-left 0.3s;
+    
+}
+
+@media screen and (max-width: 640px) {
+    .master {
+        width: 100%;
+        margin-left: -100%;
+    }
+    .master.focus {
+        margin-left: 0;
+    }
+}
