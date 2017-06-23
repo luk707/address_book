@@ -30,7 +30,7 @@ input[type=text] {
     border: 1px solid #89C3E8;
 }
 
-input[type=text] .danger {
+input[type=text].danger {
     background-color: #fff;
     border: 1px solid #E88989;
 }

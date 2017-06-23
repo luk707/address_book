@@ -143,7 +143,7 @@ class ContactView extends React.Component<ContactViewProps, ContactViewState> {
                 <b className="label">Address</b>
                 <span className="address">
                   <span>{this.props.contact.address.line1}</span>
-                  {this.props.contact.address.line2 ? <span>{this.props.contact.address.line1}</span> : null}
+                  {this.props.contact.address.line2 ? <span>{this.props.contact.address.line2}</span> : null}
                   {this.props.contact.address.line3 ? <span>{this.props.contact.address.line3}</span> : null}
                   <span>{this.props.contact.address.city}</span>
                   <span>{this.props.contact.address.county}</span>

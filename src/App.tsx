@@ -18,14 +18,15 @@ let isMobile = (): void => { window.innerWidth < 640 };
 
 let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => ({state}))((props) => {
 
-    let selected = props.state.contacts.contacts.filter(contact => contact.index == props.selectedContact)[0] || null;
+    let selected = props.state.contacts.contacts === undefined ? null: props.state.contacts.contacts.filter(contact => contact.index == props.selectedContact)[0] || null;
 
     return <SubView>
       <Master focus={props.selectedContact < 0}>
         <Toolbar title="Contacts" action={{ icon: 'add', onClick: () => { props.dispatch(push('/add')) } }}/>
         <Content>
+          {props.state.contacts == null ? null :
           <ContactList 
-            filter={contacts => contacts.sort(
+            filter={contacts => contacts === undefined ? contacts : contacts.sort(
               (a, b) =>
                 a.name.family < b.name.family ? -1 :
                 a.name.family > b.name.family ? 1 : 0) }
@@ -38,7 +39,7 @@ let MainView = connect<{state: State}, {}, {selectedContact: number}>(state => (
                 props.dispatch(replace(`/${index}`))
               }
             }}
-          />
+          />}
         </Content>
       </Master>
       <Detail>
